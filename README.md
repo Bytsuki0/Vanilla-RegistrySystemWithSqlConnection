@@ -1,108 +1,120 @@
-# Vanilla Registry System with SQL Connection
+<h1>Vanilla Registry System with SQL Connection</h1>
 
-## Visão geral
+<h2>Overview</h2>
 
-**Vanilla Registry System with SQL Connection** é um projeto em Java que implementa um sistema de registro simples (registry) com persistência em banco de dados relacional via conexão SQL. O objetivo é servir como uma base limpa e "vanilla" (sem frameworks pesados) para demonstrar padrões básicos de CRUD, gestão de conexões JDBC, organização mínima de camadas (DAO/service) e exemplo de configuração de banco de dados.
+<p><strong>Vanilla Registry System with SQL Connection</strong> is a Java project that implements a simple registry system with persistence in a relational database via SQL connection. The goal is to provide a clean and “vanilla” (no heavy frameworks) foundation to demonstrate basic CRUD patterns, JDBC connection management, minimal layer organization (DAO/service), and database configuration examples.</p>
 
----
+<hr>
 
-## Principais funcionalidades (esperadas / recomendadas)
+<h2>Main Features (Expected / Recommended)</h2>
 
-- Operações CRUD (Create, Read, Update, Delete) para entidades de registro (ex.: `User`, `Customer`, `Reservation`).
-- Abstração de acesso a dados via DAO (Data Access Object) usando JDBC puro.
-- Gerenciamento de conexão com banco SQL (MySQL, PostgreSQL, SQLite ou SQL Server) via `DataSource` ou `DriverManager`.
-- Arquivo de configuração externo para credenciais e parâmetros de conexão (`config.properties` ou variáveis de ambiente).
-- Scripts SQL de criação de esquema e dados de exemplo.
-- Execução via Maven/Gradle ou `javac/java` (simples).
+<ul>
+  <li>CRUD operations (Create, Read, Update, Delete) for registry entities (e.g., <code>User</code>, <code>Customer</code>, <code>Reservation</code>).</li>
+  <li>Data access abstraction via DAO (Data Access Object) using plain JDBC.</li>
+  <li>SQL database connection management (MySQL, PostgreSQL, SQLite, or SQL Server) via <code>DataSource</code> or <code>DriverManager</code>.</li>
+  <li>External configuration file for credentials and connection parameters (<code>config.properties</code> or environment variables).</li>
+  <li>SQL scripts for schema creation and sample data.</li>
+  <li>Execution via Maven/Gradle or plain <code>javac/java</code>.</li>
+</ul>
 
----
+<hr>
 
-## Arquitetura sugerida
+<h2>Suggested Architecture</h2>
 
-Estrutura mínima do projeto (sugestão):
-Vanilla-RegistrySystemWithSqlConnection/
-- ├─ README.md
-- ├─ pom.xml (ou build.gradle)
-- ├─ src/
-- │ ├─ main/
-- │ │ ├─ java/
-- │ │ │ ├─ com.example.registry/
-- │ │ │ │ ├─ App.java
-- │ │ │ │ ├─ config/
-- │ │ │ │ │ └─ DBConfig.java
-- │ │ │ │ ├─ dao/
-- │ │ │ │ │ ├─ BaseDAO.java
-- │ │ │ │ │ └─ UserDAO.java
-- │ │ │ │ ├─ model/
-- │ │ │ │ │ └─ User.java
-- │ │ │ │ └─ service/
-- │ │ │ │ └─ UserService.java
-- │ ├─ resources/
-- │ │ ├─ config.properties
-- │ │ └─ schema.sql
-- └─ sql/
-- └─ schema.sql
+<p>Minimal project structure (suggestion):</p>
 
+<pre><code>Vanilla-RegistrySystemWithSqlConnection/
+├─ README.md
+├─ pom.xml (or build.gradle)
+├─ src/
+│  ├─ main/
+│  │  ├─ java/
+│  │  │  ├─ com.example.registry/
+│  │  │  │  ├─ App.java
+│  │  │  │  ├─ config/
+│  │  │  │  │  └─ DBConfig.java
+│  │  │  │  ├─ dao/
+│  │  │  │  │  ├─ BaseDAO.java
+│  │  │  │  │  └─ UserDAO.java
+│  │  │  │  ├─ model/
+│  │  │  │  │  └─ User.java
+│  │  │  │  └─ service/
+│  │  │  │     └─ UserService.java
+│  ├─ resources/
+│  │  ├─ config.properties
+│  │  └─ schema.sql
+└─ sql/
+   └─ schema.sql
+</code></pre>
 
----
+<hr>
 
-## Tecnologias e dependências
+<h2>Technologies and Dependencies</h2>
 
-- Java 11+ (recomenda-se Java 17 LTS)
-- JDBC (driver do banco: MySQL Connector/J, PostgreSQL JDBC, etc.)
-- Build: Maven ou Gradle (incluir dependência do driver JDBC no `pom.xml` ou `build.gradle`)
-- (Opcional) HikariCP para pool de conexões em produção
-- (Opcional) JUnit 5 para testes unitários
+<ul>
+  <li>Java 11+ (Java 17 LTS recommended)</li>
+  <li>JDBC (database driver: MySQL Connector/J, PostgreSQL JDBC, etc.)</li>
+  <li>Build tool: Maven or Gradle (include JDBC driver dependency in <code>pom.xml</code> or <code>build.gradle</code>)</li>
+  <li>(Optional) HikariCP for connection pooling in production</li>
+  <li>(Optional) JUnit 5 for unit testing</li>
+</ul>
 
----
+<hr>
 
-## Requisitos
+<h2>Requirements</h2>
 
-- JDK 11 ou superior instalado
-- Banco de dados relacional acessível (MySQL, PostgreSQL, SQLite, etc.)
-- Ferramenta de build (Maven/Gradle) se optar por usar gerenciamento de dependências
-- Variáveis de ambiente ou arquivo `config.properties` com credenciais
+<ul>
+  <li>JDK 11 or higher installed</li>
+  <li>Accessible relational database (MySQL, PostgreSQL, SQLite, etc.)</li>
+  <li>Build tool (Maven/Gradle) if using dependency management</li>
+  <li>Environment variables or <code>config.properties</code> file with credentials</li>
+</ul>
 
----
+<hr>
 
-## Configuração do banco (exemplo)
+<h2>Database Configuration (Example)</h2>
 
-Exemplo de script SQL (`sql/schema.sql`) que cria uma tabela de usuários:
+<p>Example SQL script (<code>sql/schema.sql</code>) that creates a users table:</p>
 
-```sql
-CREATE TABLE IF NOT EXISTS users (
+<pre><code>CREATE TABLE IF NOT EXISTS users (
   id SERIAL PRIMARY KEY,
   username VARCHAR(100) NOT NULL UNIQUE,
   full_name VARCHAR(200),
   email VARCHAR(200),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-```
+</code></pre>
 
-## Exemplo de arquivo de configuração
+<hr>
 
-- src/main/resources/config.properties (exemplo):
-- db.driver=org.postgresql.Driver
-- db.url=jdbc:postgresql://localhost:5432/registrydb
-- db.username=registry_user
-- db.password=registry_password
-- db.poolSize=10
+<h2>Example Configuration File</h2>
 
-<h2>Guia rápido — compilação e execução</h2>
+<p><code>src/main/resources/config.properties</code> (example):</p>
 
-<h3>Usando Maven</h3>
+<pre><code>db.driver=org.postgresql.Driver
+db.url=jdbc:postgresql://localhost:5432/registrydb
+db.username=registry_user
+db.password=registry_password
+db.poolSize=10
+</code></pre>
 
-<p>Criar <code>pom.xml</code> com dependência do driver JDBC. Exemplo mínimo (trecho):</p>
+<hr>
+
+<h2>Quick Start — Build and Run</h2>
+
+<h3>Using Maven</h3>
+
+<p>Create a <code>pom.xml</code> with the JDBC driver dependency. Minimal example (excerpt):</p>
 
 <pre><code>&lt;dependencies&gt;
-  &lt;!-- Exemplo para PostgreSQL --&gt;
+  &lt;!-- Example for PostgreSQL --&gt;
   &lt;dependency&gt;
     &lt;groupId&gt;org.postgresql&lt;/groupId&gt;
     &lt;artifactId&gt;postgresql&lt;/artifactId&gt;
     &lt;version&gt;42.5.0&lt;/version&gt;
   &lt;/dependency&gt;
 
-  &lt;!-- JUnit para testes --&gt;
+  &lt;!-- JUnit for testing --&gt;
   &lt;dependency&gt;
     &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
     &lt;artifactId&gt;junit-jupiter&lt;/artifactId&gt;
@@ -112,31 +124,31 @@ CREATE TABLE IF NOT EXISTS users (
 &lt;/dependencies&gt;
 </code></pre>
 
-<p>Compilar:</p>
+<p>Build:</p>
 
 <pre><code>mvn clean package</code></pre>
 
-<p>Executar (assumindo App com método main):</p>
+<p>Run (assuming <code>App</code> has a main method):</p>
 
 <pre><code>java -jar target/vanilla-registry-1.0.jar</code></pre>
 
 <hr>
 
-<h3>Sem Maven (javac/java)</h3>
+<h3>Without Maven (javac/java)</h3>
 
-<p>Compilar:</p>
+<p>Compile:</p>
 
 <pre><code>javac -d out $(find src/main/java -name "*.java")</code></pre>
 
-<p>Executar:</p>
+<p>Run:</p>
 
 <pre><code>java -cp out com.example.registry.App</code></pre>
 
 <hr>
 
-<h2>Exemplo de implementação (esqueleto)</h2>
+<h2>Example Implementation (Skeleton)</h2>
 
-<h3>DBConfig.java (exemplo simplificado)</h3>
+<h3>DBConfig.java (Simplified Example)</h3>
 
 <pre><code>package com.example.registry.config;
 
@@ -158,7 +170,7 @@ public class DBConfig {
 }
 </code></pre>
 
-<h3>UserDAO.java (esqueleto)</h3>
+<h3>UserDAO.java (Skeleton)</h3>
 
 <pre><code>package com.example.registry.dao;
 
@@ -191,50 +203,50 @@ public class UserDAO {
             }
 
         } catch (SQLException e) {
-            // tratar exceção apropriadamente
+            // handle exception appropriately
             e.printStackTrace();
         }
 
         return Optional.empty();
     }
 
-    // métodos create/update/delete/listar...
+    // create/update/delete/list methods...
 }
 </code></pre>
 
 <hr>
 
-<h2>Testes</h2>
+<h2>Testing</h2>
 
 <ul>
-  <li>Adicione testes unitários com JUnit 5 para a lógica de serviço (mock do DAO).</li>
-  <li>Para testes de integração com DB, utilize um banco de teste (Docker) ou SQLite em memória e scripts de setup/teardown.</li>
+  <li>Add unit tests using JUnit 5 for service-layer logic (mock the DAO).</li>
+  <li>For database integration tests, use a test database (Docker) or in-memory SQLite with setup/teardown scripts.</li>
 </ul>
 
 <hr>
 
-<h2>Boas práticas e segurança</h2>
+<h2>Best Practices and Security</h2>
 
 <ul>
-  <li>Não comitar credenciais no repositório.</li>
-  <li>Use TLS/SSL para conexões ao banco em produção.</li>
-  <li>Utilize connection pooling (HikariCP) se espera alta carga.</li>
-  <li>Trate e registre exceções sem expor segredos.</li>
-  <li>Implemente validação de entrada para evitar SQL injection (use PreparedStatement).</li>
+  <li>Do not commit credentials to the repository.</li>
+  <li>Use TLS/SSL for database connections in production.</li>
+  <li>Use connection pooling (e.g., HikariCP) if high load is expected.</li>
+  <li>Handle and log exceptions without exposing secrets.</li>
+  <li>Validate inputs to prevent SQL injection (always use <code>PreparedStatement</code>).</li>
 </ul>
 
 <hr>
 
-<h2>Contribuição</h2>
+<h2>Contribution</h2>
 
 <ol>
-  <li>Abra uma issue descrevendo a proposta.</li>
-  <li>Faça um fork e crie um branch com a feature/bugfix.</li>
-  <li>Envie um Pull Request documentando as mudanças e incluindo testes.</li>
+  <li>Open an issue describing the proposal.</li>
+  <li>Fork the repository and create a branch for your feature/bugfix.</li>
+  <li>Submit a Pull Request documenting the changes and including tests.</li>
 </ol>
 
 <hr>
 
-<h2>Licença</h2>
+<h2>License</h2>
 
-<p>Adicione a licença desejada (ex.: MIT, Apache-2.0). Crie um arquivo <code>LICENSE</code> com o texto da licença escolhida.</p>
+<p>Add your chosen license (e.g., MIT, Apache-2.0). Create a <code>LICENSE</code> file with the full license text.</p>
