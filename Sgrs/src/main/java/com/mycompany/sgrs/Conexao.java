@@ -13,9 +13,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conexao {
-    private static final String URL = "jdbc:mysql://localhost:3306/sgsr";
-    private static final String USUARIO = "root";
-    private static final String SENHA = "root"; 
+    private static final String URL = "jdbc:mysql://localhost:ID/PLACE_HOLDER";
+    private static final String USUARIO = "Place_holder";
+    private static final String SENHA = "Place_holder"; 
 
     public static Connection getConexao() {
         try {
